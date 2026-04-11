@@ -13,6 +13,10 @@
 
 namespace M {
 
+  // ----------------------------------------------------------------------
+  // Buffer union type
+  // ----------------------------------------------------------------------
+
   namespace {
     enum MsgTypeEnum {
       ACTIVETEST_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
@@ -36,41 +40,6 @@ namespace M {
       INT_IF_INTERNALSTRUCT,
     };
 
-    // Get the max size by constructing a union of the async input, command, and
-    // internal port serialization sizes
-    union BuffUnion {
-      BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
-      BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
-      BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-      BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-      BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-      BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-      BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
-      // Size of internalArray argument list
-      BYTE internalArrayIntIfSize[
-        A::SERIALIZED_SIZE
-      ];
-      // Size of internalEnum argument list
-      BYTE internalEnumIntIfSize[
-        E::SERIALIZED_SIZE
-      ];
-      // Size of internalPrimitive argument list
-      BYTE internalPrimitiveIntIfSize[
-        sizeof(U32) +
-        sizeof(F32) +
-        sizeof(U8)
-      ];
-      // Size of internalString argument list
-      BYTE internalStringIntIfSize[
-        Fw::InternalInterfaceString::SERIALIZED_SIZE +
-        Fw::InternalInterfaceString::SERIALIZED_SIZE
-      ];
-      // Size of internalStruct argument list
-      BYTE internalStructIntIfSize[
-        S::SERIALIZED_SIZE
-      ];
-    };
-
     // Define a message buffer class large enough to handle all the
     // asynchronous inputs to the component
     class ComponentIpcSerializableBuffer :
@@ -83,7 +52,7 @@ namespace M {
           // Offset into data in buffer: Size of message ID and port number
           DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
           // Max data size
-          MAX_DATA_SIZE = sizeof(BuffUnion),
+          MAX_DATA_SIZE = sizeof(ActiveTestComponentBase::BuffUnion),
           // Max message size: Size of message id + size of port + max data size
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };

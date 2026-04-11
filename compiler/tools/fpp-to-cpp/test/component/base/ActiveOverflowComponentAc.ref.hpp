@@ -92,6 +92,22 @@ class ActiveOverflowComponentBase :
       OPCODE_CMD_PARAMS_PRIORITY_HOOK = 0x1, //!< A command with params, priority, and queue full 'hook' behavior
     };
 
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Buffer union type
+    // ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      BYTE productRecvInHookPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
+      BYTE assertAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE blockAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE dropAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE hookAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    };
+
   public:
 
     // ----------------------------------------------------------------------

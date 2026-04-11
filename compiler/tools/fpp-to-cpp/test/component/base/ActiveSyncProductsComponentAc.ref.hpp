@@ -140,6 +140,22 @@ class ActiveSyncProductsComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
+    // Buffer union type
+    // ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    };
+
+  protected:
+
+    // ----------------------------------------------------------------------
     // Types for data products
     // ----------------------------------------------------------------------
 

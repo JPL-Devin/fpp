@@ -239,6 +239,45 @@ class ActiveSerialComponentBase :
       PARAMID_PARAMSTRUCTEXT = 0x62, //!< An externally stored parameter with struct data and set/save opcodes
     };
 
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Buffer union type
+    // ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+      // Size of internalArray argument list
+      BYTE internalArrayIntIfSize[
+        A::SERIALIZED_SIZE
+      ];
+      // Size of internalEnum argument list
+      BYTE internalEnumIntIfSize[
+        E::SERIALIZED_SIZE
+      ];
+      // Size of internalPrimitive argument list
+      BYTE internalPrimitiveIntIfSize[
+        sizeof(U32) +
+        sizeof(F32) +
+        sizeof(U8)
+      ];
+      // Size of internalString argument list
+      BYTE internalStringIntIfSize[
+        Fw::InternalInterfaceString::SERIALIZED_SIZE +
+        Fw::InternalInterfaceString::SERIALIZED_SIZE
+      ];
+      // Size of internalStruct argument list
+      BYTE internalStructIntIfSize[
+        S::SERIALIZED_SIZE
+      ];
+    };
+
   public:
 
     // ----------------------------------------------------------------------

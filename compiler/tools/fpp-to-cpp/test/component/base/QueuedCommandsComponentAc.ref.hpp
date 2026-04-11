@@ -134,6 +134,22 @@ class QueuedCommandsComponentBase :
       OPCODE_CMD_PARAMS_PRIORITY_DROP = 0x23, //!< A command with params, priority, and queue full behavior
     };
 
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Buffer union type
+    // ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    };
+
   public:
 
     // ----------------------------------------------------------------------

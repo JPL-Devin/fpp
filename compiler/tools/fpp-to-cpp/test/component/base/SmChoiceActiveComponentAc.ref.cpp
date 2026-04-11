@@ -13,6 +13,10 @@
 
 namespace FppTest {
 
+  // ----------------------------------------------------------------------
+  // Buffer union type
+  // ----------------------------------------------------------------------
+
   namespace {
 
     // Constant definitions for the state machine signal buffer
@@ -36,15 +40,6 @@ namespace FppTest {
       INTERNAL_STATE_MACHINE_SIGNAL,
     };
 
-    // Get the max size by constructing a union of the async input, command, and
-    // internal port serialization sizes
-    union BuffUnion {
-      // Size of buffer for internal state machine signals
-      // The internal SmSignalBuffer stores the state machine id, the
-      // signal id, and the signal data
-      BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
-    };
-
     // Define a message buffer class large enough to handle all the
     // asynchronous inputs to the component
     class ComponentIpcSerializableBuffer :
@@ -57,7 +52,7 @@ namespace FppTest {
           // Offset into data in buffer: Size of message ID and port number
           DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
           // Max data size
-          MAX_DATA_SIZE = sizeof(BuffUnion),
+          MAX_DATA_SIZE = sizeof(SmChoiceActiveComponentBase::BuffUnion),
           // Max message size: Size of message id + size of port + max data size
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };

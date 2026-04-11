@@ -11,6 +11,10 @@
 #endif
 #include "QueuedAsyncProductsComponentAc.hpp"
 
+// ----------------------------------------------------------------------
+// Buffer union type
+// ----------------------------------------------------------------------
+
 namespace {
   enum MsgTypeEnum {
     QUEUEDASYNCPRODUCTS_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
@@ -21,18 +25,6 @@ namespace {
     TYPEDASYNCASSERT_TYPED,
     TYPEDASYNCBLOCKPRIORITY_TYPED,
     TYPEDASYNCDROPPRIORITY_TYPED,
-  };
-
-  // Get the max size by constructing a union of the async input, command, and
-  // internal port serialization sizes
-  union BuffUnion {
-    BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
-    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the
@@ -47,7 +39,7 @@ namespace {
         // Offset into data in buffer: Size of message ID and port number
         DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
         // Max data size
-        MAX_DATA_SIZE = sizeof(BuffUnion),
+        MAX_DATA_SIZE = sizeof(QueuedAsyncProductsComponentBase::BuffUnion),
         // Max message size: Size of message id + size of port + max data size
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
