@@ -49,7 +49,7 @@ class ActiveAsyncProductPortsOnlyComponentBase :
       NUM_PRODUCTSENDOUT_OUTPUT_PORTS = 1,
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type

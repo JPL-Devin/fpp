@@ -141,7 +141,7 @@ class QueuedParamsComponentBase :
       PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type

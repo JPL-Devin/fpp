@@ -49,7 +49,7 @@ namespace ExternalSm {
         sm6,
       };
 
-    protected:
+    public:
 
       // ----------------------------------------------------------------------
       // Buffer union type

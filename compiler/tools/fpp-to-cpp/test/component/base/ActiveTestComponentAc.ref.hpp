@@ -249,7 +249,7 @@ namespace M {
         return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U8);
       }
 
-    protected:
+    public:
 
       // ----------------------------------------------------------------------
       // Buffer union type

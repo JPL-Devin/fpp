@@ -62,7 +62,7 @@ namespace FppTest {
         smInitialNested,
       };
 
-    protected:
+    public:
 
       // ----------------------------------------------------------------------
       // Buffer union type

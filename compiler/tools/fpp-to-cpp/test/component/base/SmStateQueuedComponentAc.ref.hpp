@@ -94,7 +94,7 @@ namespace FppTest {
         smStateStateToState,
       };
 
-    protected:
+    public:
 
       // ----------------------------------------------------------------------
       // Buffer union type

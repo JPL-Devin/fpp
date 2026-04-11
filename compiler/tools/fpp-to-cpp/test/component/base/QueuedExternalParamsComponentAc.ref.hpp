@@ -142,7 +142,7 @@ class QueuedExternalParamsComponentBase :
       PARAMID_PARAMSTRUCTEXT = 0x62, //!< An externally stored parameter with struct data and set/save opcodes
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type

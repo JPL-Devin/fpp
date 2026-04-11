@@ -292,7 +292,7 @@ case class ComponentCppWriter (
             then smSignalBufferLines ++ (Line.blank :: buffUnionLines)
             else buffUnionLines
           addAccessTagAndComment(
-            "protected",
+            "public",
             "Buffer union type",
             List(
               linesClassMember(

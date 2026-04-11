@@ -134,7 +134,7 @@ class QueuedCommandsComponentBase :
       OPCODE_CMD_PARAMS_PRIORITY_DROP = 0x23, //!< A command with params, priority, and queue full behavior
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type

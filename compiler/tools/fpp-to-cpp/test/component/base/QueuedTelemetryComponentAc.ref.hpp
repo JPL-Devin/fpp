@@ -129,7 +129,7 @@ class QueuedTelemetryComponentBase :
       CHANNELID_CHANNELBOOLONCHANGE = 0x18, //!< Channel ID for ChannelBoolOnChange
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type

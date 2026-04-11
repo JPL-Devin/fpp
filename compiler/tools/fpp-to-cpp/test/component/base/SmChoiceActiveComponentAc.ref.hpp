@@ -56,7 +56,7 @@ namespace FppTest {
         smChoiceSequenceU32,
       };
 
-    protected:
+    public:
 
       // ----------------------------------------------------------------------
       // Buffer union type

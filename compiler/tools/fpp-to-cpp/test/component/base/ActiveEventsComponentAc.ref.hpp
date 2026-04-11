@@ -135,7 +135,7 @@ class ActiveEventsComponentBase :
       EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottledInterval
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type

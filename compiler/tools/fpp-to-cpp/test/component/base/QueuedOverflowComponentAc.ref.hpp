@@ -92,7 +92,7 @@ class QueuedOverflowComponentBase :
       OPCODE_CMD_PARAMS_PRIORITY_HOOK = 0x1, //!< A command with params, priority, and queue full 'hook' behavior
     };
 
-  protected:
+  public:
 
     // ----------------------------------------------------------------------
     // Buffer union type
