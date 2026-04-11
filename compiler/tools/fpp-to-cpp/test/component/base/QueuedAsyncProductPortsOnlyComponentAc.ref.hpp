@@ -52,6 +52,17 @@ class QueuedAsyncProductPortsOnlyComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Buffer union type
+    // ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
+    };
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Component initialization
     // ----------------------------------------------------------------------
 

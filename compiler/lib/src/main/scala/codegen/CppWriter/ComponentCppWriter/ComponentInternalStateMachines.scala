@@ -616,7 +616,7 @@ case class ComponentInternalStateMachines(
 
     def getLines: List[Line] = List.concat(
       CppDocWriter.writeComment("Constant definitions for the state machine signal buffer"),
-      wrapInNamespace(
+      wrapInNamedStruct(
         "SmSignalBuffer",
         List.concat(
           guardedList (hasSignalTypes) (getSignalTypeUnion),

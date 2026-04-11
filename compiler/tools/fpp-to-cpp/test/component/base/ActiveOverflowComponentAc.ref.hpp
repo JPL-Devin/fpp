@@ -95,6 +95,22 @@ class ActiveOverflowComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Buffer union type
+    // ----------------------------------------------------------------------
+    // Get the max size by constructing a union of the async input, command, and
+    // internal port serialization sizes
+    union BuffUnion {
+      BYTE productRecvInHookPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
+      BYTE assertAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE blockAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE dropAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE hookAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+      BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    };
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Component initialization
     // ----------------------------------------------------------------------
 

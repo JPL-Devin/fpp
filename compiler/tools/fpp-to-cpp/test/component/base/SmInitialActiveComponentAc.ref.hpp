@@ -56,6 +56,30 @@ namespace FppTest {
         smInitialNested,
       };
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Buffer union type
+      // ----------------------------------------------------------------------
+
+      // Constant definitions for the state machine signal buffer
+      struct SmSignalBuffer {
+
+        // The serialized size
+        static constexpr FwSizeType SERIALIZED_SIZE =
+          2 * sizeof(FwEnumStoreType);
+
+      };
+
+      // Get the max size by constructing a union of the async input, command, and
+      // internal port serialization sizes
+      union BuffUnion {
+        // Size of buffer for internal state machine signals
+        // The internal SmSignalBuffer stores the state machine id, the
+        // signal id, and the signal data
+        BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
+      };
+
     protected:
 
       // ----------------------------------------------------------------------

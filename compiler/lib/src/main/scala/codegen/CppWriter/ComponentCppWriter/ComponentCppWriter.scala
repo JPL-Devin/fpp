@@ -182,6 +182,9 @@ case class ComponentCppWriter (
       // Constants
       getConstantMembers,
 
+      // BuffUnion type (in .hpp)
+      getBuffUnionMember,
+
       // Anonymous namespace members
       getAnonymousNamespaceMembers,
 
@@ -277,6 +280,30 @@ case class ComponentCppWriter (
     )
   }
 
+  private def getBuffUnionMember: List[CppDoc.Class.Member] =
+    componentData.kind match {
+      case Ast.ComponentKind.Passive => Nil
+      case _ =>
+        val buffUnionLines = getBuffUnion
+        if buffUnionLines.isEmpty then Nil
+        else {
+          val smSignalBufferLines = stateMachineWriter.getAnonymousNamespaceLines
+          val allLines = if smSignalBufferLines.nonEmpty
+            then smSignalBufferLines ++ (Line.blank :: buffUnionLines)
+            else buffUnionLines
+          addAccessTagAndComment(
+            "public",
+            "Buffer union type",
+            List(
+              linesClassMember(
+                allLines,
+                CppDoc.Lines.Hpp
+              )
+            )
+          )
+        }
+    }
+
   private def getAnonymousNamespaceMembers: List[CppDoc.Class.Member] =
     componentData.kind match {
       case Ast.ComponentKind.Passive => Nil
@@ -287,9 +314,7 @@ case class ComponentCppWriter (
             Line.blank :: wrapInAnonymousNamespace(
               intersperseBlankLines(
                 List(
-                  stateMachineWriter.getAnonymousNamespaceLines,
                   getMsgTypeEnum,
-                  buffUnion,
                   getComponentIpcSerializableBufferClass(buffUnion)
                 )
               )
@@ -384,7 +409,7 @@ case class ComponentCppWriter (
   }
 
   private def getComponentIpcSerializableBufferClass(buffUnion: List[Line]): List[Line] = {
-    val maxDataSize = if buffUnion.nonEmpty then "sizeof(BuffUnion)" else "0"
+    val maxDataSize = if buffUnion.nonEmpty then s"sizeof(${componentClassName}::BuffUnion)" else "0"
     lines(
       s"""|// Define a message buffer class large enough to handle all the
           |// asynchronous inputs to the component

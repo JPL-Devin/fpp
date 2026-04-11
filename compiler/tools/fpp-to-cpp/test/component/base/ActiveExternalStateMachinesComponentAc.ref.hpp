@@ -52,6 +52,21 @@ namespace ExternalSm {
     public:
 
       // ----------------------------------------------------------------------
+      // Buffer union type
+      // ----------------------------------------------------------------------
+      // Get the max size by constructing a union of the async input, command, and
+      // internal port serialization sizes
+      union BuffUnion {
+        // Size of buffer for external state machine signals
+        // The external SmSignalBuffer stores the signal data
+        BYTE externalSmBufferSize[
+          2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE
+        ];
+      };
+
+    public:
+
+      // ----------------------------------------------------------------------
       // Component initialization
       // ----------------------------------------------------------------------
 

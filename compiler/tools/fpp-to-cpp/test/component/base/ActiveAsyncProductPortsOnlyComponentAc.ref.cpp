@@ -11,16 +11,14 @@
 #include "Fw/Types/String.hpp"
 #endif
 
+// ----------------------------------------------------------------------
+// Buffer union type
+// ----------------------------------------------------------------------
+
 namespace {
   enum MsgTypeEnum {
     ACTIVEASYNCPRODUCTPORTSONLY_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
     PRODUCTRECVIN_DPRESPONSE,
-  };
-
-  // Get the max size by constructing a union of the async input, command, and
-  // internal port serialization sizes
-  union BuffUnion {
-    BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the
@@ -35,7 +33,7 @@ namespace {
         // Offset into data in buffer: Size of message ID and port number
         DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
         // Max data size
-        MAX_DATA_SIZE = sizeof(BuffUnion),
+        MAX_DATA_SIZE = sizeof(ActiveAsyncProductPortsOnlyComponentBase::BuffUnion),
         // Max message size: Size of message id + size of port + max data size
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };

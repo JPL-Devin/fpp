@@ -88,6 +88,41 @@ namespace FppTest {
         smStateStateToState,
       };
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Buffer union type
+      // ----------------------------------------------------------------------
+
+      // Constant definitions for the state machine signal buffer
+      struct SmSignalBuffer {
+
+        // Union for computing the max size of a signal type
+        union SignalTypeUnion {
+          BYTE size_of_FppTest_SmHarness_TestAbsType[FppTest::SmHarness::TestAbsType::SERIALIZED_SIZE];
+          BYTE size_of_FppTest_SmHarness_TestArray[FppTest::SmHarness::TestArray::SERIALIZED_SIZE];
+          BYTE size_of_FppTest_SmHarness_TestEnum[FppTest::SmHarness::TestEnum::SERIALIZED_SIZE];
+          BYTE size_of_FppTest_SmHarness_TestStruct[FppTest::SmHarness::TestStruct::SERIALIZED_SIZE];
+          BYTE size_of_U32[sizeof(U32)];
+          BYTE size_of_string[Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_MAX(FW_MAX(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE), 200), 100))];
+        };
+
+        // The serialized size
+        static constexpr FwSizeType SERIALIZED_SIZE =
+          2 * sizeof(FwEnumStoreType) +
+          sizeof(SignalTypeUnion);
+
+      };
+
+      // Get the max size by constructing a union of the async input, command, and
+      // internal port serialization sizes
+      union BuffUnion {
+        // Size of buffer for internal state machine signals
+        // The internal SmSignalBuffer stores the state machine id, the
+        // signal id, and the signal data
+        BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];
+      };
+
     protected:
 
       // ----------------------------------------------------------------------
