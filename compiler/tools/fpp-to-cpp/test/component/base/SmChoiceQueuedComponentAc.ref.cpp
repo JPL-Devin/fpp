@@ -18,23 +18,6 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   namespace {
-
-    // Constant definitions for the state machine signal buffer
-    namespace SmSignalBuffer {
-
-      // Union for computing the max size of a signal type
-      union SignalTypeUnion {
-        BYTE size_of_U16[sizeof(U16)];
-        BYTE size_of_U32[sizeof(U32)];
-      };
-
-      // The serialized size
-      static constexpr FwSizeType SERIALIZED_SIZE =
-        2 * sizeof(FwEnumStoreType) +
-        sizeof(SignalTypeUnion);
-
-    }
-
     enum MsgTypeEnum {
       SMCHOICEQUEUED_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
       INTERNAL_STATE_MACHINE_SIGNAL,

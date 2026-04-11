@@ -286,16 +286,22 @@ case class ComponentCppWriter (
       case _ =>
         val buffUnionLines = getBuffUnion
         if buffUnionLines.isEmpty then Nil
-        else addAccessTagAndComment(
-          "protected",
-          "Buffer union type",
-          List(
-            linesClassMember(
-              buffUnionLines,
-              CppDoc.Lines.Hpp
+        else {
+          val smSignalBufferLines = stateMachineWriter.getAnonymousNamespaceLines
+          val allLines = if smSignalBufferLines.nonEmpty
+            then smSignalBufferLines ++ (Line.blank :: buffUnionLines)
+            else buffUnionLines
+          addAccessTagAndComment(
+            "protected",
+            "Buffer union type",
+            List(
+              linesClassMember(
+                allLines,
+                CppDoc.Lines.Hpp
+              )
             )
           )
-        )
+        }
     }
 
   private def getAnonymousNamespaceMembers: List[CppDoc.Class.Member] =
@@ -308,7 +314,6 @@ case class ComponentCppWriter (
             Line.blank :: wrapInAnonymousNamespace(
               intersperseBlankLines(
                 List(
-                  stateMachineWriter.getAnonymousNamespaceLines,
                   getMsgTypeEnum,
                   getComponentIpcSerializableBufferClass(buffUnion)
                 )

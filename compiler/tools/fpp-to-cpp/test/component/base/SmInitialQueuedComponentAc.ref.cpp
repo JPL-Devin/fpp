@@ -18,16 +18,6 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   namespace {
-
-    // Constant definitions for the state machine signal buffer
-    namespace SmSignalBuffer {
-
-      // The serialized size
-      static constexpr FwSizeType SERIALIZED_SIZE =
-        2 * sizeof(FwEnumStoreType);
-
-    }
-
     enum MsgTypeEnum {
       SMINITIALQUEUED_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
       INTERNAL_STATE_MACHINE_SIGNAL,
