@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+# Test for fpp_to_plantuml.py
+#
+# Runs the translator against a checked-in fpp-ast.json fixture and compares
+# the result against the expected PlantUML output.
+
+here=`dirname "$0"`
+script="$here/../fpp_to_plantuml.py"
+
+fixture="$here/state-machine/fpp-ast.json"
+expected="$here/state-machine/expected.puml"
+actual=`mktemp`
+
+trap 'rm -f "$actual"' EXIT
+
+python3 "$script" "$fixture" > "$actual"
+
+if diff -u "$expected" "$actual"
+then
+  echo "PASS: state-machine"
+else
+  echo "FAIL: state-machine"
+  exit 1
+fi
