@@ -191,7 +191,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ) = for {
     a <- super.specTlmPacketSetAnnotatedNode(a, aNode)
-    a <- visitList(a, aNode._2.data.omitted, tlmChannelIdentifierNode)
+    a <- visitList(a, aNode._2.data.omitted, tlmPacketMember)
   } yield a
 
   override def specInterfaceImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecImport]]) = {

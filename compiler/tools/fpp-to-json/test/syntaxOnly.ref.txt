@@ -1964,72 +1964,84 @@
                                                 ],
                                                 "omitted" : [
                                                   {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "componentInstance" : {
-                                                          "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "j"
+                                                    "TlmChannelIdentifier" : {
+                                                      "node" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "componentInstance" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "j"
+                                                                  }
+                                                                },
+                                                                "id" : 918
                                                               }
                                                             },
-                                                            "id" : 918
-                                                          }
-                                                        },
-                                                        "channelName" : {
-                                                          "AstNode" : {
-                                                            "data" : "T",
-                                                            "id" : 917
-                                                          }
+                                                            "channelName" : {
+                                                              "AstNode" : {
+                                                                "data" : "T",
+                                                                "id" : 917
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 919
                                                         }
-                                                      },
-                                                      "id" : 919
+                                                      }
                                                     }
                                                   },
                                                   {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "componentInstance" : {
-                                                          "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "k"
+                                                    "TlmChannelIdentifier" : {
+                                                      "node" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "componentInstance" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "k"
+                                                                  }
+                                                                },
+                                                                "id" : 922
                                                               }
                                                             },
-                                                            "id" : 922
-                                                          }
-                                                        },
-                                                        "channelName" : {
-                                                          "AstNode" : {
-                                                            "data" : "T",
-                                                            "id" : 921
-                                                          }
+                                                            "channelName" : {
+                                                              "AstNode" : {
+                                                                "data" : "T",
+                                                                "id" : 921
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 923
                                                         }
-                                                      },
-                                                      "id" : 923
+                                                      }
                                                     }
                                                   },
                                                   {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "componentInstance" : {
-                                                          "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "l"
+                                                    "TlmChannelIdentifier" : {
+                                                      "node" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "componentInstance" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "l"
+                                                                  }
+                                                                },
+                                                                "id" : 926
                                                               }
                                                             },
-                                                            "id" : 926
-                                                          }
-                                                        },
-                                                        "channelName" : {
-                                                          "AstNode" : {
-                                                            "data" : "T",
-                                                            "id" : 925
-                                                          }
+                                                            "channelName" : {
+                                                              "AstNode" : {
+                                                                "data" : "T",
+                                                                "id" : 925
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 927
                                                         }
-                                                      },
-                                                      "id" : 927
+                                                      }
                                                     }
                                                   }
                                                 ]

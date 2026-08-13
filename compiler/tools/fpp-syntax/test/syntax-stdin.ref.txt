@@ -399,7 +399,10 @@ def module
             qual ident i5.c5
         @< Included packet
       omitted
-        qual ident i3.c3
+        tlm channel identifier
+          qual ident i3.c3
+        tlm channel identifier
+          qual ident i6.c6
     @< Telemetry packet group
     @ Topology port specifier
     spec top port

@@ -98,13 +98,13 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
 
     /** Extracts omitted channels */
     def omittedChannelList(file: XmlFppWriter.File):
-      Result.Result[List[AstNode[Ast.TlmChannelIdentifier]]] =
+      Result.Result[List[Ast.TlmPacketMember]] =
       for {
         child <- file.getSingleChild(file.elem, "ignore")
         channels <- Right(child \ "channel")
-        channelIds <- Result.map(channels.toList, tlmChannelIdentifierNode(file, _))
+        members <- Result.map(channels.toList, tlmPacketMember(file, _))
       }
-      yield channelIds
+      yield members
 
     /** Translates the telemetry packet set */
     def specTlmPacketSetAnnotated(file: XmlFppWriter.File):

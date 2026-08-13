@@ -736,7 +736,7 @@ object FppWriter extends AstVisitor with LineUtils {
         )
       ).
       joinNoIndent (" omit ") (
-        addBracesIfNonempty(data.omitted.flatMap(applyToData(tlmChannelId)))
+        addBracesIfNonempty(data.omitted.flatMap(tlmPacketMember))
       )
   }
 

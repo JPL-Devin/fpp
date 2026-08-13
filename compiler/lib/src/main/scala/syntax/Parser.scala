@@ -251,12 +251,9 @@ object Parser extends Parsers {
   }
 
   def specTlmPacketSet: Parser[Ast.SpecTlmPacketSet] = {
-    def omitted: Parser[List[AstNode[Ast.TlmChannelIdentifier]]] = {
+    def omitted: Parser[List[Ast.TlmPacketMember]] = {
       opt(
-        omit ~>! lbrace ~>! elementSequence(
-          node(tlmChannelIdentifier),
-          comma
-        ) <~! rbrace
+        omit ~>! lbrace ~>! tlmPacketMembers <~! rbrace
       ) ^^ {
         case Some(elements) => elements
         case None => Nil

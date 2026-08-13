@@ -26,10 +26,14 @@ trait TopologyStateTransformer extends AstStateTransformer {
   ) = {
     val (pre, node, post) = aNode
     val Ast.SpecTlmPacketSet(name, members, omitted) = node.data
-    for { result <- transformList(s, members, tlmPacketSetMember) }
+    for {
+      result <- transformList(s, members, tlmPacketSetMember)
+      omittedResult <- transformList(result._1, omitted, tlmPacketMember)
+    }
     yield {
-      val (s1, members1) = result
-      val defModule = Ast.SpecTlmPacketSet(name, members1.flatten, omitted)
+      val (_, members1) = result
+      val (s1, omitted1) = omittedResult
+      val defModule = Ast.SpecTlmPacketSet(name, members1.flatten, omitted1.flatten)
       val node1 = AstNode.create(defModule, node.id)
       (s1, (pre, node1, post))
     }

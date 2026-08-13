@@ -715,7 +715,7 @@ object AstWriter extends AstVisitor with LineUtils {
         ),
         List.concat(
           lines("omitted"),
-          data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
+          data.omitted.flatMap(tlmPacketMember).map(indentIn)
         )
       ).map(indentIn)
     )

@@ -392,7 +392,10 @@ def module
           file packet.fppi
         @< Include specifier
       omitted
-        qual ident i3.c3
+        tlm channel identifier
+          qual ident i3.c3
+        spec include
+          file omitted.fppi
     @< Telemetry packet group
     @ Topology port specifier
     spec top port

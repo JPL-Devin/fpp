@@ -248,6 +248,7 @@ module DefinitionsAndSpecifiers {
 
     } omit {
       i3.c3
+      i6.c6
     } @< Telemetry packet group
 
     @ Topology port specifier
