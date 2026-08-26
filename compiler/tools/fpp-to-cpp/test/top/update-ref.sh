@@ -63,6 +63,14 @@ params()
   cd $TOP_DIR
 }
 
+queue_priorities()
+{
+  cd $TOP_DIR/queue_priorities
+  update "-p $PWD,$FPRIME_DIR -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
+  move_cpp QueuePrioritiesTopology
+  cd $TOP_DIR
+}
+
 serial_ports_active()
 {
   cd $TOP_DIR/serial_ports_active

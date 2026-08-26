@@ -266,6 +266,13 @@ def module
     type T
     file C2.hpp
     queue size literal int 100
+    queue priorities
+      queue priority entry
+        priority literal int 1
+        size literal int 10
+      queue priority entry
+        priority literal int 2
+        size literal int 20
     stack size literal int 1024
     priority literal int 10
     cpu literal int 0

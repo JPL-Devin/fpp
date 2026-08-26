@@ -194,6 +194,7 @@ case class ComponentCppWriter (
 
       // Public function members
       getPublicComponentFunctionMembers,
+      getMsgSizeByPriorityFunctionMembers,
       portWriter.getPublicFunctionMembers,
       cmdWriter.getPublicFunctionMembers,
       paramWriter.getPublicFunctionMembers,
@@ -507,6 +508,116 @@ case class ComponentCppWriter (
         )
       )
     )
+  }
+
+  private def getMsgSizeByPriorityFunctionMembers: List[CppDoc.Class.Member] = {
+    if componentData.kind == Ast.ComponentKind.Passive then Nil
+    else {
+      val defaultPriority = BigInt(0)
+      val cmdCapacityExpr =
+        s"${PortCppWriterUtils.getPortBufferName("Fw::Cmd")}::CAPACITY"
+      val portSizes = (dataProductAsyncInputPorts ++ typedAsyncInputPorts).map(p => {
+        val priority = p match {
+          case g: PortInstance.General => g.kind match {
+            case PortInstance.General.Kind.AsyncInput(pri, _) =>
+              pri.getOrElse(defaultPriority)
+            case _ => defaultPriority
+          }
+          case sp: PortInstance.Special => sp.priority.getOrElse(defaultPriority)
+          case _ => defaultPriority
+        }
+        val expr =
+          if getPortParams(p).size > 0 then {
+            val _ @ Some(PortInstance.Type.DefPort(symbol)) = p.getType
+            val cppPortName = s.writeSymbol(symbol)
+            s"${PortCppWriterUtils.getPortBufferName(cppPortName)}::CAPACITY"
+          }
+          else "0"
+        (priority, expr)
+      })
+      val cmdSizes = asyncCmds.map((_, cmd) => {
+        val priority = cmd.kind match {
+          case Command.NonParam.Async(pri, _) => pri.getOrElse(defaultPriority)
+          case _ => defaultPriority
+        }
+        (priority, cmdCapacityExpr)
+      })
+      val internalPortSizes = internalPorts.map(p => {
+        val expr =
+          if getPortParams(p).size > 0 then
+            p.aNode._2.data.params.map(param =>
+              writeStaticSerializedSizeExpr(
+                s,
+                s.a.typeMap(param._2.data.typeName.id),
+                writeInternalPortParamType(param._2.data)
+              )
+            ).mkString(" + ")
+          else "0"
+        (p.priority.getOrElse(defaultPriority), expr)
+      })
+      val externalSmSizes = externalStateMachineInstances.map(smi => (
+        smi.priority.getOrElse(defaultPriority),
+        "2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE"
+      ))
+      val internalSmSizes = internalStateMachineInstances.map(smi => (
+        smi.priority.getOrElse(defaultPriority),
+        "SmSignalBuffer::SERIALIZED_SIZE"
+      ))
+      val sizesByPriority = (
+        portSizes ++ cmdSizes ++ internalPortSizes ++
+        externalSmSizes ++ internalSmSizes
+      ).groupMap(_._1)(_._2)
+      val caseLines = sizesByPriority.toList.sortBy(_._1).flatMap((priority, exprs) => {
+        List.concat(
+          List(line(s"case $priority: {")),
+          (
+            lines("FwSizeType size = 0;") ++
+            exprs.distinct.flatMap(e =>
+              lines(s"size = FW_MAX(size, static_cast<FwSizeType>($e));")
+            ) ++
+            lines(
+              "return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;"
+            )
+          ).map(indentIn),
+          List(line("}"))
+        )
+      })
+      val body = wrapInScope(
+        "switch (priority) {",
+        caseLines ++ (
+          line("default:") ::
+          lines(
+            "return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE);"
+          ).map(indentIn)
+        ),
+        "}"
+      )
+      addAccessTagAndComment(
+        "public",
+        "Queue message sizes",
+        List(
+          functionClassMember(
+            Some(
+              """|Get the maximum size of an async message at the given queue priority
+                 |
+                 |For a priority with no statically sized messages, this function
+                 |returns the maximum size of any async message"""
+            ),
+            "getMaxMsgSizeForPriority",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("FwQueuePriorityType"),
+                "priority",
+                Some("The queue priority")
+              )
+            ),
+            CppDoc.Type("FwSizeType"),
+            body,
+            CppDoc.Function.Static
+          )
+        )
+      )
+    }
   }
 
   private def getProtectedComponentFunctionMembers: List[CppDoc.Class.Member] = {

@@ -408,6 +408,7 @@
                                       }
                                     }
                                   },
+                                  "queuePriorities" : "None",
                                   "stackSize" : "None",
                                   "priority" : "None",
                                   "cpu" : "None",
@@ -1017,6 +1018,7 @@
         "queueSize" : {
           "Some" : 10
         },
+        "queuePriorities" : "None",
         "stackSize" : "None",
         "priority" : "None",
         "cpu" : "None",

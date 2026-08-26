@@ -15,6 +15,7 @@ case class TopHelperFns(
   def getMembers: (Set[String], List[CppDoc.Member]) = {
     // Get pairs of (function name, function member)
     val pairs = List(
+      getConfigureQueuesFn,
       getInitComponentsFn,
       getConfigComponentsFn,
       getSetBaseIdsFn,
@@ -49,6 +50,62 @@ case class TopHelperFns(
       Some("The topology state")
     )
   )
+
+  private def getConfigureQueuesFn = {
+    def getPriorityConfigArray(ci: ComponentInstance, entries: List[(BigInt, BigInt)]): List[Line] = {
+      val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
+      val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
+      wrapInScope(
+        s"static const Os::QueueInterface::PriorityConfig ${name}_priorityConfigs[${entries.size}] = {",
+        entries.map { case (priority, depth) =>
+          line(
+            s"{static_cast<FwQueuePriorityType>($priority), " +
+            s"$cppQualifiedName.getMaxMsgSizeForPriority(static_cast<FwQueuePriorityType>($priority)), " +
+            s"static_cast<FwSizeType>($depth)},"
+          )
+        },
+        "};"
+      )
+    }
+    val name = "configureQueues"
+    val instancesWithPriorities = instances.filter(_.queuePriorities.isDefined)
+    val body = instancesWithPriorities match {
+      case Nil => Nil
+      case _ =>
+        val priorityConfigArrays = instancesWithPriorities.flatMap(
+          ci => getPriorityConfigArray(ci, ci.queuePriorities.get)
+        )
+        val instanceConfigArray = wrapInScope(
+          s"static const Os::QueueInterface::InstancePriorityConfig instancePriorityConfigs[${instancesWithPriorities.size}] = {",
+          instancesWithPriorities.map(ci => {
+            val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
+            val numPriorities = ci.queuePriorities.get.size
+            line(
+              s"{static_cast<FwEnumStoreType>(InstanceIds::$name), " +
+              s"$numPriorities, ${name}_priorityConfigs},"
+            )
+          }),
+          "};"
+        )
+        List.concat(
+          priorityConfigArrays,
+          instanceConfigArray,
+          lines(
+            s"Os::Queue::setPriorityConfig(instancePriorityConfigs, ${instancesWithPriorities.size});"
+          )
+        )
+    }
+    val memberOpt = body match {
+      case Nil => None
+      case _ => getFnMemberOpt(
+        "Configure the queues of components with queue priorities",
+        name,
+        Nil,
+        body
+      )
+    }
+    (name, memberOpt)
+  }
 
   private def getInitComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {

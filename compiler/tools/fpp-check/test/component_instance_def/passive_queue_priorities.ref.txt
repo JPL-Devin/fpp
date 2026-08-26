@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/passive_queue_priorities.fpp:5.48
+instance c: C base id 0x100 queue priorities { priority 0 size 5 }
+                                               ^
+error: invalid component instance definition c: passive component may not have queue priorities

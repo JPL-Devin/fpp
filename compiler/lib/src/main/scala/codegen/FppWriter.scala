@@ -200,6 +200,7 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.implType) ("type ") (applyToData(string)).
       joinOptWithBreak (data.file) ("at ") (applyToData(string)).
       joinOptWithBreak (data.queueSize) ("queue size ") (exprNode).
+      joinOptWithBreak (data.queuePriorities) ("queue priorities ") (queuePriorityList).
       joinOptWithBreak (data.stackSize) ("stack size ") (exprNode).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.cpu) ("cpu ") (exprNode).
@@ -792,6 +793,16 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
   ) = lines("string").joinOpt (tn.size) (" size ") (exprNode)
+
+  private def queuePriorityList(entries: List[AstNode[Ast.QueuePriorityEntry]]): Out =
+    addBraces(entries.flatMap(queuePriorityEntry))
+
+  private def queuePriorityEntry(node: AstNode[Ast.QueuePriorityEntry]): Out = {
+    val data = node.data
+    lines("priority").
+      join (" ") (exprNode(data.priority)).
+      join (" size ") (exprNode(data.size))
+  }
 
   private def addBraces(ls: Out): Out =
     line("{") :: (ls.map(indentIn) :+ line("}"))

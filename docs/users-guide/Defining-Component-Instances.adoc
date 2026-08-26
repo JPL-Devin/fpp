@@ -281,6 +281,48 @@ instance dataCompressor: Utils.DataCompressor base id 0x100 \
   queue size Default.queueSize
 --------
 
+*Queue priorities:*
+By default, a component instance uses a single queue depth
+(the queue size) for all message priorities.
+If the deployment uses a message queue implementation that supports
+per-priority queue depths (e.g., `Os::Generic::PriorityMemQueue` in
+F Prime), you may configure the queue depth for each message priority
+by writing a `queue` `priorities` block after the queue size.
+Each entry in the block has the form `priority` _P_ `size` _N_,
+where _P_ is a message priority used by the component and _N_ is the
+queue depth for that priority.
+For example:
+
+[source,fpp]
+--------
+instance dataCompressor: Utils.DataCompressor base id 0x100 \
+  queue size Default.queueSize \
+  queue priorities {
+    priority 0 size 5
+    priority 10 size 20
+  } \
+  stack size Default.stackSize \
+  priority 30
+--------
+
+When you write a queue priorities block, you must configure every
+priority explicitly: the block must contain exactly one entry for each
+message priority used by the component (async input ports, async
+commands, internal ports, and state machine instances; messages with
+no specified priority use priority zero).
+It is an error to omit a used priority, to list a priority that the
+component does not use, to list the same priority twice, or to use
+a priority outside the range [0, 31].
+Queue priorities may be specified for active and queued components,
+and may not be used with a component that has serial async input
+ports.
+
+For each configured instance, the generated topology code registers
+the per-priority queue depths and maximum message sizes with
+`Os::Queue::setPriorityConfig()` before initializing any component,
+using per-priority maximum message sizes computed by the code
+generator.
+
 *CPU affinity:*
 When defining an active component, you may specify
 a *CPU affinity*.

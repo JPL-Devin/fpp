@@ -12,6 +12,7 @@ final case class ComponentInstance(
   maxId: BigInt,
   file: Option[String],
   queueSize: Option[BigInt],
+  queuePriorities: Option[List[(BigInt, BigInt)]],
   stackSize: Option[BigInt],
   priority: Option[BigInt],
   cpu: Option[BigInt],
@@ -72,6 +73,14 @@ object ComponentInstance {
         componentKind,
         data.queueSize
       )
+      queuePriorities <- getQueuePriorities(
+        a,
+        data.name,
+        Locations.get(node.id),
+        componentKind,
+        component,
+        data.queuePriorities
+      )
       stackSize <- getActiveAttribute(
         data.name,
         componentKind
@@ -109,6 +118,7 @@ object ComponentInstance {
         maxId,
         file,
         queueSize,
+        queuePriorities,
         stackSize,
         priority,
         cpu
@@ -153,6 +163,109 @@ object ComponentInstance {
         loc,
         s"$componentKind component must have queue size"
       )
+    }
+  }
+
+  /** The maximum number of queue priorities */
+  val maxQueuePriorities = 32
+
+  /** Gets the queue priorities */
+  private def getQueuePriorities(
+    a: Analysis,
+    name: String,
+    loc: Location,
+    componentKind: Ast.ComponentKind,
+    component: Component,
+    entriesOpt: Option[List[AstNode[Ast.QueuePriorityEntry]]]
+  ): Result.Result[Option[List[(BigInt, BigInt)]]] = {
+    (componentKind, entriesOpt) match {
+      case (Ast.ComponentKind.Passive, Some(entries)) => invalid(
+        name,
+        entries.headOption.map(e => Locations.get(e.id)).getOrElse(loc),
+        "passive component may not have queue priorities"
+      )
+      case (_, Some(entries)) =>
+        val hasSerialAsyncInput = component.portMap.values.exists {
+          case g: PortInstance.General => (g.getType, g.kind) match {
+            case (
+              Some(PortInstance.Type.Serial),
+              PortInstance.General.Kind.AsyncInput(_, _)
+            ) => true
+            case _ => false
+          }
+          case _ => false
+        }
+        for {
+          _ <-
+            if (!hasSerialAsyncInput) Right(())
+            else invalid(
+              name,
+              entries.headOption.map(e => Locations.get(e.id)).getOrElse(loc),
+              "queue priorities may not be used with a component that has serial async input ports"
+            )
+          resolved <- Result.map(
+            entries,
+            (entry: AstNode[Ast.QueuePriorityEntry]) => for {
+              priority <- a.getNonnegativeBigIntValue(entry.data.priority.id)
+              _ <-
+                if (priority < maxQueuePriorities) Right(())
+                else invalid(
+                  name,
+                  Locations.get(entry.data.priority.id),
+                  s"queue priority $priority is out of range [0, ${maxQueuePriorities - 1}]"
+                )
+              size <- a.getNonnegativeBigIntValue(entry.data.size.id)
+            } yield (entry, priority, size)
+          )
+          _ <- checkForDuplicates(name, resolved)
+          _ <- checkAgainstUsedPriorities(name, loc, component, resolved)
+        } yield Some(resolved.map { case (_, priority, size) => (priority, size) })
+      case (_, None) => Right(None)
+    }
+  }
+
+  /** Checks for duplicate queue priority entries */
+  private def checkForDuplicates(
+    name: String,
+    resolved: List[(AstNode[Ast.QueuePriorityEntry], BigInt, BigInt)]
+  ): Result.Result[Unit] =
+    Result.foldLeft (resolved) (Map[BigInt, AstNode[Ast.QueuePriorityEntry]]()) {
+      case (map, (entry, priority, _)) => map.get(priority) match {
+        case Some(_) => invalid(
+          name,
+          Locations.get(entry.data.priority.id),
+          s"duplicate entry for queue priority $priority"
+        )
+        case None => Right(map + (priority -> entry))
+      }
+    }.map(_ => ())
+
+  /** Checks queue priority entries against the priorities used by the
+   *  component */
+  private def checkAgainstUsedPriorities(
+    name: String,
+    loc: Location,
+    component: Component,
+    resolved: List[(AstNode[Ast.QueuePriorityEntry], BigInt, BigInt)]
+  ): Result.Result[Unit] = {
+    val usedPriorities = component.getUsedQueuePriorities
+    val specifiedPriorities = resolved.map(_._2).toSet
+    val missing = usedPriorities.diff(specifiedPriorities)
+    val unused = resolved.filter { case (_, priority, _) =>
+      !usedPriorities.contains(priority)
+    }
+    if (missing.nonEmpty) invalid(
+      name,
+      resolved.headOption.map(r => Locations.get(r._1.id)).getOrElse(loc),
+      s"queue priorities block is missing entries for priorities used by the component: ${missing.toList.sorted.mkString(", ")}"
+    )
+    else unused match {
+      case (entry, priority, _) :: _ => invalid(
+        name,
+        Locations.get(entry.data.priority.id),
+        s"queue priority $priority is not used by the component"
+      )
+      case Nil => Right(())
     }
   }
 

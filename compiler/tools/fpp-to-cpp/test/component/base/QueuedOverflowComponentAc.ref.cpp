@@ -444,6 +444,32 @@ void QueuedOverflowComponentBase ::
   );
 }
 
+// ----------------------------------------------------------------------
+// Queue message sizes
+// ----------------------------------------------------------------------
+
+FwSizeType QueuedOverflowComponentBase ::
+  getMaxMsgSizeForPriority(FwQueuePriorityType priority)
+{
+  switch (priority) {
+    case 0: {
+      FwSizeType size = 0;
+      size = FW_MAX(size, static_cast<FwSizeType>(Fw::DpResponsePortBuffer::CAPACITY));
+      size = FW_MAX(size, static_cast<FwSizeType>(Ports::TypedPortBuffer::CAPACITY));
+      size = FW_MAX(size, static_cast<FwSizeType>(Fw::CmdPortBuffer::CAPACITY));
+      size = FW_MAX(size, static_cast<FwSizeType>(0));
+      return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+    }
+    case 30: {
+      FwSizeType size = 0;
+      size = FW_MAX(size, static_cast<FwSizeType>(Fw::CmdPortBuffer::CAPACITY));
+      return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+    }
+    default:
+      return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE);
+  }
+}
+
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------

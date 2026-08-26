@@ -43,6 +43,7 @@ case class TopSetupTeardownFns(
     params,
     CppDoc.Type("void"),
     List(
+      ("configureQueues", ""),
       ("initComponents", "state"),
       ("configComponents", "state"),
       ("setBaseIds", ""),

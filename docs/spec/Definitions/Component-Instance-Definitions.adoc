@@ -23,6 +23,9 @@ _[_
 `queue` `size` <<Expressions,_expression_>>
 _]_
 _[_
+`queue` `priorities` `{` _queue-priority-entry-sequence_ `}`
+_]_
+_[_
 `stack` `size` <<Expressions,_expression_>>
 _]_
 _[_
@@ -39,6 +42,12 @@ _init-specifier-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is an
 <<Specifiers_Init-Specifiers,init specifier>>,
+and the terminating punctuation is a semicolon.
+
+_queue-priority-entry-sequence_ is an
+<<Element-Sequences,element sequence>> in which each element
+has the form `priority` <<Expressions,_expression_>>
+`size` <<Expressions,_expression_>>,
 and the terminating punctuation is a semicolon.
 
 ==== Semantics
@@ -116,6 +125,34 @@ It specifies the queue size for active and queued components.
 The queue size is required for active and queued components
 and is not allowed for passive components.
 
+. If present, the `queue` `priorities` block opts the instance into
+explicit per-priority queue configuration, for use with a message
+queue implementation that supports per-priority queue depths
+(e.g., `Os::Generic::PriorityMemQueue` in F Prime).
+A queue priorities block is allowed for active and queued components
+and is not allowed for passive components.
+In each entry, the expression following the keyword `priority`
+and the expression following the keyword `size` must each have a
+<<Types_Internal-Types_Numeric-Types,numeric type>>
+and must evaluate to a nonnegative integer after
+<<Type-Checking_Type-Conversion,type conversion>>.
+Each entry specifies the queue depth (`size`) for one message
+priority (`priority`) of the instance.
+
+.. Each priority must be in the range [0, 31].
+
+.. No priority may appear in more than one entry.
+
+.. If the block is present, it must contain exactly one entry for each
+message priority used by the component: every priority used by the
+component's async messages (async input ports, async commands, internal
+ports, and state machine instances; messages with no specified priority
+use priority zero) must have an entry, and no entry may specify a
+priority that the component does not use.
+
+.. A queue priorities block may not be used with a component that has
+serial async input ports.
+
 . If present, the expression following the keywords `stack` `size` must
 have a <<Types_Internal-Types_Numeric-Types,numeric type>>
 and must evaluate to a nonnegative integer after
@@ -158,6 +195,24 @@ This example defines a component instance `commandDispatcher`
 of component `Svc.CommandDispatcher`.
 It specifies the base identifier, queue size, stack size,
 priority, and CPU.
+
+[source,fpp]
+----
+instance commandDispatcher: Svc.CommandDispatcher \
+  base id 0x100 \
+  queue size 10 \
+  queue priorities {
+    priority 0 size 5
+    priority 10 size 20
+  } \
+  stack size 4096 \
+  priority 30 \
+  cpu 0
+----
+
+This example additionally specifies per-priority queue depths
+for message priorities 0 and 10, for use with a message queue
+implementation that supports per-priority queue depths.
 
 [source,fpp]
 ----

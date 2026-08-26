@@ -116,6 +116,7 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("type", applyToData(string)), data.implType),
       linesOpt(applyToData(fileString), data.file),
       linesOpt(addPrefix("queue size", exprNode), data.queueSize),
+      linesOpt(queuePriorities, data.queuePriorities),
       linesOpt(addPrefix("stack size", exprNode), data.stackSize),
       linesOpt(addPrefix("priority", exprNode), data.priority),
       linesOpt(addPrefix("cpu", exprNode), data.cpu),
@@ -844,6 +845,19 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
     matchExprNode((), node)
+
+  private def queuePriorities(entries: List[AstNode[Ast.QueuePriorityEntry]]): Out =
+    lines("queue priorities") ++
+    entries.flatMap(queuePriorityEntry).map(indentIn)
+
+  private def queuePriorityEntry(node: AstNode[Ast.QueuePriorityEntry]): Out = {
+    val data = node.data
+    lines("queue priority entry") ++
+    List.concat(
+      addPrefix("priority", exprNode) (data.priority),
+      addPrefix("size", exprNode) (data.size)
+    ).map(indentIn)
+  }
 
   private def fileString(s: String) = lines("file " ++ s)
 

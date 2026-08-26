@@ -90,6 +90,44 @@ namespace ExternalSm {
   }
 
   // ----------------------------------------------------------------------
+  // Queue message sizes
+  // ----------------------------------------------------------------------
+
+  FwSizeType ActiveExternalStateMachinesComponentBase ::
+    getMaxMsgSizeForPriority(FwQueuePriorityType priority)
+  {
+    switch (priority) {
+      case 0: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 1: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 2: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 3: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 4: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      default:
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE);
+    }
+  }
+
+  // ----------------------------------------------------------------------
   // Component construction and destruction
   // ----------------------------------------------------------------------
 

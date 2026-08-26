@@ -95,6 +95,7 @@ object Lexer {
     ("passive", PASSIVE),
     ("phase", PHASE),
     ("port", PORT),
+    ("priorities", PRIORITIES),
     ("priority", PRIORITY),
     ("product", PRODUCT),
     ("queue", QUEUE),
@@ -313,6 +314,7 @@ object Lexer {
         case PORT => Token.PORT()
         case POST_ANNOTATION => Token.POST_ANNOTATION(strVal)
         case PRE_ANNOTATION => Token.PRE_ANNOTATION(strVal)
+        case PRIORITIES => Token.PRIORITIES()
         case PRIORITY => Token.PRIORITY()
         case PRODUCT => Token.PRODUCT()
         case QUEUE => Token.QUEUE()

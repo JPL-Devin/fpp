@@ -215,6 +215,24 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   );
 }
 
+// ----------------------------------------------------------------------
+// Queue message sizes
+// ----------------------------------------------------------------------
+
+FwSizeType QueuedNoArgsPortsOnlyComponentBase ::
+  getMaxMsgSizeForPriority(FwQueuePriorityType priority)
+{
+  switch (priority) {
+    case 0: {
+      FwSizeType size = 0;
+      size = FW_MAX(size, static_cast<FwSizeType>(0));
+      return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+    }
+    default:
+      return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE);
+  }
+}
+
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------

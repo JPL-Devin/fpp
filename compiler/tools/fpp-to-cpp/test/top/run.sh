@@ -79,6 +79,16 @@ params()
   return $status
 }
 
+queue_priorities()
+{
+  cd $TOP_DIR/queue_priorities
+  run_test "-p $PWD,$FPRIME_DIR -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
+    diff_cpp QueuePrioritiesTopology
+  status=$?
+  cd $TOP_DIR
+  return $status
+}
+
 serial_ports_active()
 {
   cd $TOP_DIR/serial_ports_active

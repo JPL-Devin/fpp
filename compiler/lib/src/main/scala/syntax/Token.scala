@@ -99,6 +99,7 @@ object Token {
   final case class PORT() extends Token
   final case class POST_ANNOTATION(str: String) extends Token
   final case class PRE_ANNOTATION(str: String) extends Token
+  final case class PRIORITIES() extends Token
   final case class PRIORITY() extends Token
   final case class PRODUCT() extends Token
   final case class QUEUE() extends Token
@@ -241,6 +242,7 @@ enum TokenId {
   case PASSIVE
   case PHASE
   case PORT
+  case PRIORITIES
   case PRIORITY
   case PRODUCT
   case QUEUE

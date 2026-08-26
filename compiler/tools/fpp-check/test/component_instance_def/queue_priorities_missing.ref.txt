@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queue_priorities_missing.fpp:14.5
+    priority 2 size 5
+    ^
+error: invalid component instance definition c: queue priorities block is missing entries for priorities used by the component: 0

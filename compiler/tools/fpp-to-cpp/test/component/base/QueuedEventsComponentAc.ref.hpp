@@ -149,6 +149,20 @@ class QueuedEventsComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Queue message sizes
+    // ----------------------------------------------------------------------
+
+    //! Get the maximum size of an async message at the given queue priority
+    //!
+    //! For a priority with no statically sized messages, this function
+    //! returns the maximum size of any async message
+    static FwSizeType getMaxMsgSizeForPriority(
+        FwQueuePriorityType priority //!< The queue priority
+    );
+
 #if !FW_DIRECT_PORT_CALLS
 
   public:

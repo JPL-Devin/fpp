@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queue_priorities_unused.fpp:13.14
+    priority 7 size 10
+             ^
+error: invalid component instance definition c: queue priority 7 is not used by the component

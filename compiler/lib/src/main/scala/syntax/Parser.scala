@@ -134,12 +134,14 @@ object Parser extends Parsers {
     )) ~! (base ~! id ~>! exprNode) ~!
       opt(typeToken ~>! node(literalString)) ~!
       opt(at ~>! node(literalString)) ~!
-      opt(queue ~! size ~>! exprNode) ~!
+      opt(queue ~ size ~>! exprNode) ~!
+      opt(queue ~ priorities ~>!
+        (lbrace ~>! elementSequence(node(queuePriorityEntry), semi) <~! rbrace)) ~!
       opt(stack ~! size ~>! exprNode) ~!
       opt(priority ~>! exprNode) ~!
       opt(cpu ~>! exprNode) ~!
       initSpecSequence ^^ {
-      case name ~ typeName ~ baseId ~ implType ~ file ~ queueSize ~ stackSize ~ priority ~ cpu ~ initSpecSequence =>
+      case name ~ typeName ~ baseId ~ implType ~ file ~ queueSize ~ queuePriorities ~ stackSize ~ priority ~ cpu ~ initSpecSequence =>
         Ast.DefComponentInstance(
           name,
           typeName,
@@ -147,6 +149,7 @@ object Parser extends Parsers {
           implType,
           file,
           queueSize,
+          queuePriorities,
           stackSize,
           priority,
           cpu,
@@ -1281,7 +1284,15 @@ object Parser extends Parsers {
   private def preAnnotation: Parser[String] =
     accept("pre annotation", { case Token.PRE_ANNOTATION(s) => s })
 
+  private def priorities = accept("priorities", { case t: Token.PRIORITIES => t })
+
   private def priority = accept("priority", { case t: Token.PRIORITY => t })
+
+  private def queuePriorityEntry: Parser[Ast.QueuePriorityEntry] = {
+    (priority ~>! exprNode) ~! (size ~>! exprNode) ^^ {
+      case priority ~ size => Ast.QueuePriorityEntry(priority, size)
+    }
+  }
 
   private def product = accept("product", { case t: Token.PRODUCT => t })
 

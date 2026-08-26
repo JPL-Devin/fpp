@@ -10,8 +10,16 @@ large_int
 ok
 passive_cpu
 passive_priority
+passive_queue_priorities
 passive_queue_size
 passive_stack_size
+queue_priorities_duplicate
+queue_priorities_empty
+queue_priorities_missing
+queue_priorities_ok
+queue_priorities_out_of_range
+queue_priorities_serial
+queue_priorities_unused
 queued_cpu
 queued_no_queue_size
 queued_priority

@@ -76,6 +76,14 @@ trait TypeExpressionAnalyzer
     for {
       a <- exprNode(a, data.baseId)
       a <- opt(exprNode)(a, data.queueSize)
+      a <- visitList(
+        a,
+        data.queuePriorities.getOrElse(Nil),
+        (a: Analysis, entry: AstNode[Ast.QueuePriorityEntry]) => for {
+          a <- exprNode(a, entry.data.priority)
+          a <- exprNode(a, entry.data.size)
+        } yield a
+      )
       a <- opt(exprNode)(a, data.stackSize)
       a <- opt(exprNode)(a, data.priority)
       a <- opt(exprNode)(a, data.cpu)

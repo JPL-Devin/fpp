@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queue_priorities_out_of_range.fpp:12.14
+    priority 32 size 5
+             ^
+error: invalid component instance definition c: queue priority 32 is out of range [0, 31]

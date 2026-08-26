@@ -50,10 +50,14 @@ case class TopologyCppWriter(
     }
     val cpp = {
       val fileName = ComputeCppFiles.FileNames.getTopology(name)
+      val hasQueuePriorities = instances.exists(_.queuePriorities.isDefined)
       linesMember(
-        List(
-          Line.blank,
-          CppWriter.headerLine(s.getIncludePath(symbol, fileName))
+        List.concat(
+          List(
+            Line.blank,
+            CppWriter.headerLine(s.getIncludePath(symbol, fileName))
+          ),
+          guardedList (hasQueuePriorities) (lines(CppWriter.headerString("Os/Queue.hpp")))
         ),
         CppDoc.Lines.Cpp
       )

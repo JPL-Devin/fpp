@@ -763,6 +763,7 @@
                                       }
                                     }
                                   },
+                                  "queuePriorities" : "None",
                                   "stackSize" : {
                                     "Some" : {
                                       "AstNode" : {
@@ -888,6 +889,7 @@
                                       }
                                     }
                                   },
+                                  "queuePriorities" : "None",
                                   "stackSize" : {
                                     "Some" : {
                                       "AstNode" : {
@@ -2016,6 +2018,7 @@
         "queueSize" : {
           "Some" : 10
         },
+        "queuePriorities" : "None",
         "stackSize" : {
           "Some" : 10240
         },
@@ -2046,6 +2049,7 @@
         "queueSize" : {
           "Some" : 10
         },
+        "queuePriorities" : "None",
         "stackSize" : {
           "Some" : 10240
         },

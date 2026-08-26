@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queue_priorities_serial.fpp:10.5
+    priority 2 size 20
+    ^
+error: invalid component instance definition c: queue priorities may not be used with a component that has serial async input ports

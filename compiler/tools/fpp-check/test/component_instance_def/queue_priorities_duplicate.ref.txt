@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/queue_priorities_duplicate.fpp:13.14
+    priority 2 size 10
+             ^
+error: invalid component instance definition c: duplicate entry for queue priority 2

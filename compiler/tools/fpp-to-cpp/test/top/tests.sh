@@ -8,6 +8,7 @@ nested_namespaces
 no_namespace
 params
 ports
+queue_priorities
 serial_ports_active
 serial_ports_passive
 serial_ports_queued

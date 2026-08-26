@@ -113,10 +113,17 @@ object Ast {
     implType: Option[AstNode[String]],
     file: Option[AstNode[String]],
     queueSize: Option[AstNode[Expr]],
+    queuePriorities: Option[List[AstNode[QueuePriorityEntry]]],
     stackSize: Option[AstNode[Expr]],
     priority: Option[AstNode[Expr]],
     cpu: Option[AstNode[Expr]],
     initSpecs: List[Annotated[AstNode[SpecInit]]]
+  )
+
+  /** Queue priority entry in a component instance definition */
+  final case class QueuePriorityEntry(
+    priority: AstNode[Expr],
+    size: AstNode[Expr]
   )
 
   /** Constant definition */

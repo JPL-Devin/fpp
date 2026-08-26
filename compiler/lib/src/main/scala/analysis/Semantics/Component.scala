@@ -56,6 +56,42 @@ case class Component(
   /** Query whether the component has commands */
   def hasCommands = this.commandMap.nonEmpty
 
+  /** Gets the set of queue message priorities used by this component.
+   *  Messages with no specified priority use priority zero. */
+  def getUsedQueuePriorities: Set[BigInt] = {
+    val defaultPriority = BigInt(0)
+    val generalPortPriorities = portMap.values.collect {
+      case g: PortInstance.General => g.kind
+    }.collect {
+      case PortInstance.General.Kind.AsyncInput(priority, _) =>
+        priority.getOrElse(defaultPriority)
+    }
+    val specialPortPriorities = specialPortMap.values.collect {
+      case s: PortInstance.Special
+        if s.specifier.inputKind == Some(Ast.SpecPortInstance.Async) =>
+          s.priority.getOrElse(defaultPriority)
+    }
+    val internalPortPriorities = portMap.values.collect {
+      case i: PortInstance.Internal => i.priority.getOrElse(defaultPriority)
+    }
+    val commandPriorities = commandMap.values.collect {
+      case c: Command.NonParam => c.kind
+    }.collect {
+      case Command.NonParam.Async(priority, _) =>
+        priority.getOrElse(defaultPriority)
+    }
+    val stateMachinePriorities = stateMachineInstanceMap.values.map(
+      _.priority.getOrElse(defaultPriority)
+    )
+    (
+      generalPortPriorities ++
+      specialPortPriorities ++
+      internalPortPriorities ++
+      commandPriorities ++
+      stateMachinePriorities
+    ).toSet
+  }
+
   /** Query whether the component has events */
   def hasEvents = this.eventMap.nonEmpty
 

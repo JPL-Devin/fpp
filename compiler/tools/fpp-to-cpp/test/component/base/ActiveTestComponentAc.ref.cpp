@@ -1269,6 +1269,55 @@ namespace M {
     );
   }
 
+  // ----------------------------------------------------------------------
+  // Queue message sizes
+  // ----------------------------------------------------------------------
+
+  FwSizeType ActiveTestComponentBase ::
+    getMaxMsgSizeForPriority(FwQueuePriorityType priority)
+  {
+    switch (priority) {
+      case 0: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(Fw::DpResponsePortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(Ports::AliasTypedPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(0));
+        size = FW_MAX(size, static_cast<FwSizeType>(Ports::TypedPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(Fw::CmdPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(A::SERIALIZED_SIZE));
+        size = FW_MAX(size, static_cast<FwSizeType>(E::SERIALIZED_SIZE));
+        size = FW_MAX(size, static_cast<FwSizeType>(Fw::InternalInterfaceString::SERIALIZED_SIZE + Fw::InternalInterfaceString::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 5: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(Ports::TypedPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(sizeof(U32) + sizeof(F32) + sizeof(U8)));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 10: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(Ports::TypedPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(Fw::CmdPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(0));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 20: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(Fw::CmdPortBuffer::CAPACITY));
+        size = FW_MAX(size, static_cast<FwSizeType>(S::SERIALIZED_SIZE));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      case 30: {
+        FwSizeType size = 0;
+        size = FW_MAX(size, static_cast<FwSizeType>(Fw::CmdPortBuffer::CAPACITY));
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::DATA_OFFSET) + size;
+      }
+      default:
+        return static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE);
+    }
+  }
+
 #if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
