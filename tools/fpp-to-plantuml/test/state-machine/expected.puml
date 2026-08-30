@@ -1,0 +1,31 @@
+@startuml
+title M
+note as N_M
+State machine M
+end note
+state C <<choice>>
+C : Choice C
+C --> S1 : [g1]
+C --> S2 : [else]
+state S1
+S1 : State S1
+state S2 {
+  state "C" as S2_C <<choice>>
+  S2_C : Choice C
+  S2_C --> S1 : [g1] / a1; a2
+  S2_C --> S2_S3 : [else] / a2; a3
+  state "S3" as S2_S3
+  S2_S3 : State S3
+  [*] --> S2_S3 : / a1; a2
+}
+S2 : State S2
+S2 : entry / a1; a2
+S2 : exit / a1; a2
+S2 --> S2_C : s1 [g1] / a1
+S2 --> S1 : s2 [g1]
+S2 --> S1 : s3 [g1]
+S2 --> S1 : s4
+S2 : s5 [g1] / a1
+S2 : s6 / a1
+[*] --> C : / a1
+@enduml

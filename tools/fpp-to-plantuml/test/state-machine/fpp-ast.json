@@ -1,0 +1,1469 @@
+{
+  "fppVersion" : "[ fpp version ]",
+  "ast" : [
+    {
+      "members" : [
+        [
+          [
+          ],
+          {
+            "DefAliasType" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FwSizeStoreType",
+                    "typeName" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U16" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 0
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 1
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_FIXED_LENGTH_STRING_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "256"
+                          }
+                        },
+                        "id" : 2
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 3
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+            "State machine M"
+          ],
+          {
+            "DefStateMachine" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "M",
+                    "members" : {
+                      "Some" : [
+                        [
+                          [
+                          ],
+                          {
+                            "DefEnum" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "State",
+                                    "typeName" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : {
+                                                "U8" : {
+                                                  
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 268
+                                        }
+                                      }
+                                    },
+                                    "constants" : [
+                                      [
+                                        [
+                                          "The uninitialized state"
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "__FPRIME_UNINITIALIZED",
+                                              "value" : "None"
+                                            },
+                                            "id" : 265
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "State S1"
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "S1",
+                                              "value" : "None"
+                                            },
+                                            "id" : 266
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "State S3"
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "S2_S3",
+                                              "value" : "None"
+                                            },
+                                            "id" : 267
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ]
+                                    ],
+                                    "default" : "None",
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 269
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
+                            "DefArray" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "A",
+                                    "size" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "3"
+                                          }
+                                        },
+                                        "id" : 4
+                                      }
+                                    },
+                                    "eltType" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "TypeNameInt" : {
+                                            "name" : {
+                                              "U32" : {
+                                                
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 5
+                                      }
+                                    },
+                                    "default" : "None",
+                                    "format" : "None",
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 6
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
+                            "DefConstant" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "c",
+                                    "value" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "0"
+                                          }
+                                        },
+                                        "id" : 7
+                                      }
+                                    },
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 8
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
+                            "DefEnum" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "E",
+                                    "typeName" : "None",
+                                    "constants" : [
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "X",
+                                              "value" : "None"
+                                            },
+                                            "id" : 9
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "Y",
+                                              "value" : "None"
+                                            },
+                                            "id" : 10
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "Z",
+                                              "value" : "None"
+                                            },
+                                            "id" : 13
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ]
+                                    ],
+                                    "default" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprIdent" : {
+                                              "value" : "X"
+                                            }
+                                          },
+                                          "id" : 14
+                                        }
+                                      }
+                                    },
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 15
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
+                            "DefStruct" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "S",
+                                    "members" : [
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "x",
+                                              "size" : {
+                                                "Some" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "3"
+                                                      }
+                                                    },
+                                                    "id" : 16
+                                                  }
+                                                }
+                                              },
+                                              "typeName" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "TypeNameInt" : {
+                                                      "name" : {
+                                                        "U32" : {
+                                                          
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "id" : 17
+                                                }
+                                              },
+                                              "format" : "None"
+                                            },
+                                            "id" : 18
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "y",
+                                              "size" : "None",
+                                              "typeName" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "TypeNameFloat" : {
+                                                      "name" : {
+                                                        "F32" : {
+                                                          
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "id" : 19
+                                                }
+                                              },
+                                              "format" : "None"
+                                            },
+                                            "id" : 20
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "z",
+                                              "size" : "None",
+                                              "typeName" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "TypeNameString" : {
+                                                      "size" : "None"
+                                                    }
+                                                  },
+                                                  "id" : 25
+                                                }
+                                              },
+                                              "format" : "None"
+                                            },
+                                            "id" : 26
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ]
+                                    ],
+                                    "default" : "None",
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 27
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
+                            "DefAbsType" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "T"
+                                  },
+                                  "id" : 28
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
+                            "DefAliasType" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "X",
+                                    "typeName" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "TypeNameInt" : {
+                                            "name" : {
+                                              "U32" : {
+                                                
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 29
+                                      }
+                                    },
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 30
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Action a1"
+                          ],
+                          {
+                            "DefAction" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "a1",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 31
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Action a2"
+                          ],
+                          {
+                            "DefAction" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "a2",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 32
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Action a3"
+                          ],
+                          {
+                            "DefAction" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "a3",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 33
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Action a4"
+                          ],
+                          {
+                            "DefAction" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "a4",
+                                    "typeName" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : {
+                                                "U32" : {
+                                                  
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 34
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "id" : 35
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Guard g1"
+                          ],
+                          {
+                            "DefGuard" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "g1",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 36
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Guard g2"
+                          ],
+                          {
+                            "DefGuard" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "g2",
+                                    "typeName" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : {
+                                                "U32" : {
+                                                  
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 37
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "id" : 38
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Signal s1"
+                          ],
+                          {
+                            "DefSignal" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "s1",
+                                    "typeName" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : {
+                                                "U32" : {
+                                                  
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 39
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "id" : 40
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Signal s2"
+                          ],
+                          {
+                            "DefSignal" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "s2",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 41
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Signal s3"
+                          ],
+                          {
+                            "DefSignal" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "s3",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 42
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Signal s4"
+                          ],
+                          {
+                            "DefSignal" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "s4",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 43
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Signal s5"
+                          ],
+                          {
+                            "DefSignal" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "s5",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 44
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Signal s6"
+                          ],
+                          {
+                            "DefSignal" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "s6",
+                                    "typeName" : "None"
+                                  },
+                                  "id" : 45
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Initial transition"
+                          ],
+                          {
+                            "SpecInitialTransition" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "transition" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "actions" : [
+                                            {
+                                              "AstNode" : {
+                                                "data" : "a1",
+                                                "id" : 46
+                                              }
+                                            }
+                                          ],
+                                          "target" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "C"
+                                                }
+                                              },
+                                              "id" : 48
+                                            }
+                                          }
+                                        },
+                                        "id" : 49
+                                      }
+                                    }
+                                  },
+                                  "id" : 50
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "Choice C"
+                          ],
+                          {
+                            "DefChoice" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "C",
+                                    "guard" : {
+                                      "AstNode" : {
+                                        "data" : "g1",
+                                        "id" : 51
+                                      }
+                                    },
+                                    "ifTransition" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "actions" : [
+                                          ],
+                                          "target" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "S1"
+                                                }
+                                              },
+                                              "id" : 53
+                                            }
+                                          }
+                                        },
+                                        "id" : 54
+                                      }
+                                    },
+                                    "elseTransition" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "actions" : [
+                                          ],
+                                          "target" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "S2"
+                                                }
+                                              },
+                                              "id" : 56
+                                            }
+                                          }
+                                        },
+                                        "id" : 57
+                                      }
+                                    }
+                                  },
+                                  "id" : 58
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "State S1"
+                          ],
+                          {
+                            "DefState" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "S1",
+                                    "members" : [
+                                    ]
+                                  },
+                                  "id" : 59
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                            "State S2"
+                          ],
+                          {
+                            "DefState" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "S2",
+                                    "members" : [
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "SpecStateEntry" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "actions" : [
+                                                    {
+                                                      "AstNode" : {
+                                                        "data" : "a1",
+                                                        "id" : 196
+                                                      }
+                                                    },
+                                                    {
+                                                      "AstNode" : {
+                                                        "data" : "a2",
+                                                        "id" : 197
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "id" : 198
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "SpecStateExit" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "actions" : [
+                                                    {
+                                                      "AstNode" : {
+                                                        "data" : "a1",
+                                                        "id" : 199
+                                                      }
+                                                    },
+                                                    {
+                                                      "AstNode" : {
+                                                        "data" : "a2",
+                                                        "id" : 200
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "id" : 201
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Initial transition"
+                                        ],
+                                        {
+                                          "SpecInitialTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "transition" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "actions" : [
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a1",
+                                                              "id" : 202
+                                                            }
+                                                          },
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a2",
+                                                              "id" : 203
+                                                            }
+                                                          }
+                                                        ],
+                                                        "target" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "Unqualified" : {
+                                                                "name" : "S3"
+                                                              }
+                                                            },
+                                                            "id" : 205
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 206
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 207
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Choice C"
+                                        ],
+                                        {
+                                          "DefChoice" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "C",
+                                                  "guard" : {
+                                                    "AstNode" : {
+                                                      "data" : "g1",
+                                                      "id" : 208
+                                                    }
+                                                  },
+                                                  "ifTransition" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "actions" : [
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a1",
+                                                              "id" : 209
+                                                            }
+                                                          },
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a2",
+                                                              "id" : 210
+                                                            }
+                                                          }
+                                                        ],
+                                                        "target" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "Unqualified" : {
+                                                                "name" : "S1"
+                                                              }
+                                                            },
+                                                            "id" : 212
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 213
+                                                    }
+                                                  },
+                                                  "elseTransition" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "actions" : [
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a2",
+                                                              "id" : 214
+                                                            }
+                                                          },
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a3",
+                                                              "id" : 215
+                                                            }
+                                                          }
+                                                        ],
+                                                        "target" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "Qualified" : {
+                                                                "qualifier" : {
+                                                                  "AstNode" : {
+                                                                    "data" : {
+                                                                      "Unqualified" : {
+                                                                        "name" : "S2"
+                                                                      }
+                                                                    },
+                                                                    "id" : 216
+                                                                  }
+                                                                },
+                                                                "name" : {
+                                                                  "AstNode" : {
+                                                                    "data" : "S3",
+                                                                    "id" : 217
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 218
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 219
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 220
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "State S3"
+                                        ],
+                                        {
+                                          "DefState" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "name" : "S3",
+                                                  "members" : [
+                                                  ]
+                                                },
+                                                "id" : 221
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Transition to S1"
+                                        ],
+                                        {
+                                          "SpecStateTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "signal" : {
+                                                    "AstNode" : {
+                                                      "data" : "s1",
+                                                      "id" : 222
+                                                    }
+                                                  },
+                                                  "guard" : {
+                                                    "Some" : {
+                                                      "AstNode" : {
+                                                        "data" : "g1",
+                                                        "id" : 223
+                                                      }
+                                                    }
+                                                  },
+                                                  "transitionOrDo" : {
+                                                    "Transition" : {
+                                                      "transition" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "actions" : [
+                                                              {
+                                                                "AstNode" : {
+                                                                  "data" : "a1",
+                                                                  "id" : 224
+                                                                }
+                                                              }
+                                                            ],
+                                                            "target" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "C"
+                                                                  }
+                                                                },
+                                                                "id" : 226
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 227
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 228
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                        ],
+                                        {
+                                          "SpecStateTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "signal" : {
+                                                    "AstNode" : {
+                                                      "data" : "s2",
+                                                      "id" : 229
+                                                    }
+                                                  },
+                                                  "guard" : {
+                                                    "Some" : {
+                                                      "AstNode" : {
+                                                        "data" : "g1",
+                                                        "id" : 230
+                                                      }
+                                                    }
+                                                  },
+                                                  "transitionOrDo" : {
+                                                    "Transition" : {
+                                                      "transition" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "actions" : [
+                                                            ],
+                                                            "target" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "S1"
+                                                                  }
+                                                                },
+                                                                "id" : 232
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 233
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 234
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Transition to S1"
+                                        ],
+                                        {
+                                          "SpecStateTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "signal" : {
+                                                    "AstNode" : {
+                                                      "data" : "s3",
+                                                      "id" : 235
+                                                    }
+                                                  },
+                                                  "guard" : {
+                                                    "Some" : {
+                                                      "AstNode" : {
+                                                        "data" : "g1",
+                                                        "id" : 236
+                                                      }
+                                                    }
+                                                  },
+                                                  "transitionOrDo" : {
+                                                    "Transition" : {
+                                                      "transition" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "actions" : [
+                                                            ],
+                                                            "target" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "S1"
+                                                                  }
+                                                                },
+                                                                "id" : 238
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 239
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 240
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Transition to S1"
+                                        ],
+                                        {
+                                          "SpecStateTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "signal" : {
+                                                    "AstNode" : {
+                                                      "data" : "s4",
+                                                      "id" : 241
+                                                    }
+                                                  },
+                                                  "guard" : "None",
+                                                  "transitionOrDo" : {
+                                                    "Transition" : {
+                                                      "transition" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "actions" : [
+                                                            ],
+                                                            "target" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "S1"
+                                                                  }
+                                                                },
+                                                                "id" : 243
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 244
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 245
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Internal transition"
+                                        ],
+                                        {
+                                          "SpecStateTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "signal" : {
+                                                    "AstNode" : {
+                                                      "data" : "s5",
+                                                      "id" : 246
+                                                    }
+                                                  },
+                                                  "guard" : {
+                                                    "Some" : {
+                                                      "AstNode" : {
+                                                        "data" : "g1",
+                                                        "id" : 247
+                                                      }
+                                                    }
+                                                  },
+                                                  "transitionOrDo" : {
+                                                    "Do" : {
+                                                      "actions" : [
+                                                        {
+                                                          "AstNode" : {
+                                                            "data" : "a1",
+                                                            "id" : 249
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 250
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "Internal transition"
+                                        ],
+                                        {
+                                          "SpecStateTransition" : {
+                                            "node" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "signal" : {
+                                                    "AstNode" : {
+                                                      "data" : "s6",
+                                                      "id" : 259
+                                                    }
+                                                  },
+                                                  "guard" : "None",
+                                                  "transitionOrDo" : {
+                                                    "Do" : {
+                                                      "actions" : [
+                                                        {
+                                                          "AstNode" : {
+                                                            "data" : "a1",
+                                                            "id" : 261
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 262
+                                              }
+                                            }
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ]
+                                    ]
+                                  },
+                                  "id" : 263
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      ]
+                    }
+                  },
+                  "id" : 264
+                }
+              }
+            }
+          },
+          [
+          ]
+        ]
+      ]
+    }
+  ]
+}
