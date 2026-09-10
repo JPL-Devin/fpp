@@ -16,6 +16,7 @@ negative_id
 negative_level
 not_deployment_topology
 ok
+omit_include
 omit_instance_not_defined
 omit_instance_not_in_topology
 "
@@ -23,4 +24,9 @@ omit_instance_not_in_topology
 ok()
 {
   run_test instances.fpp ok
+}
+
+omit_include()
+{
+  run_test instances.fpp omit_include
 }

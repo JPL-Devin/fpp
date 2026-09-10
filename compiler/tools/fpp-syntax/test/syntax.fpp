@@ -214,6 +214,7 @@ module DefinitionsAndSpecifiers {
 
     } omit {
       i3.c3
+      include "omitted.fppi"
     }
     @< Telemetry packet group
 

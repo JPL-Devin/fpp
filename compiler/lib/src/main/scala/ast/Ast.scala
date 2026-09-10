@@ -818,7 +818,7 @@ object Ast {
   final case class SpecTlmPacketSet(
     name: Ident,
     members: List[TlmPacketSetMember],
-    omitted: List[AstNode[TlmChannelIdentifier]]
+    omitted: List[TlmPacketMember]
   )
 
   /** Topology port specifier */

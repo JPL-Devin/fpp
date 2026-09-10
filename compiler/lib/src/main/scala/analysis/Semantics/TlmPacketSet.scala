@@ -62,7 +62,9 @@ object TlmPacketSet {
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketSet):
   Result.Result[TlmPacketSet] = {
-    val nodeList = tpg.aNode._2.data.omitted
+    val nodeList = tpg.aNode._2.data.omitted.collect {
+      case Ast.TlmPacketMember.TlmChannelIdentifier(node) => node
+    }
     for {
       idList <- Result.map(
         nodeList,

@@ -526,26 +526,30 @@
                                   ],
                                   "omitted" : [
                                     {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "componentInstance" : {
-                                            "AstNode" : {
-                                              "data" : {
-                                                "Unqualified" : {
-                                                  "name" : "c2"
+                                      "TlmChannelIdentifier" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "componentInstance" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "Unqualified" : {
+                                                      "name" : "c2"
+                                                    }
+                                                  },
+                                                  "id" : 110
                                                 }
                                               },
-                                              "id" : 110
-                                            }
-                                          },
-                                          "channelName" : {
-                                            "AstNode" : {
-                                              "data" : "T",
-                                              "id" : 109
-                                            }
+                                              "channelName" : {
+                                                "AstNode" : {
+                                                  "data" : "T",
+                                                  "id" : 109
+                                                }
+                                              }
+                                            },
+                                            "id" : 111
                                           }
-                                        },
-                                        "id" : 111
+                                        }
                                       }
                                     }
                                   ]
