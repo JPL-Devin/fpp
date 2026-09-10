@@ -1,4 +1,4 @@
-topology T1 {
+deployment topology T1 {
 
   instance c1
   instance c2
